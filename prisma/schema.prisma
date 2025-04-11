@@ -20,6 +20,6 @@ model User {
   state   String
   city    String
   address String    ?
-  age     Int
+  age     String
 }
 

@@ -1,10 +1,12 @@
 import express from 'express'
+import cors from 'cors'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 app.post('/usuarios', async (req, res) => {
   
@@ -15,7 +17,7 @@ app.post('/usuarios', async (req, res) => {
             state: req.body.state,
             city: req.body.city,
             address: req.body.address,
-            age: req.body.age
+            age: Number(req.body.age)
         }
     })
     
@@ -57,9 +59,6 @@ app.get('/usuarios', async (req, res) => {
     let users;
     if(req.query) {    
         users = await prisma.user.findMany({
-            where: {
-                name: req.query.name
-            }
         })
    
     } else {
